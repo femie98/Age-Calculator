@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;1,400;1,800&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<main>
+    <div class="container">
+        <form>
+        <div class="input">
+            <div class="calculator-input input error">
+            <div class="input-label">
+                <p class="input-text">Day</p>
+            </div>
+            <div class="input-field">
+                <input class="input-type input-days" type="number" placeholder="DD" min="1">
+                <p class="input-text-error">Invalid Day</p>
+            </div>
+             </div>        
+             <div class="calculator-input input error">
+                <div class="input-label">
+                    <p class="input-text">Month</p>
+                </div>
+                <div class="input-field">
+                    <input class="input-type input-months" type="number" placeholder="MM" min="1">
+                    <p class="input-text-error">Invalid Month</p>
+                </div>
+            </div>            
+            <div class="calculator-input input error">
+            <div class="input-label">
+                <p class="input-text">Year</p>
+            </div>
+            <div class="input-field">
+                <input class="input-type input-years" type="number" placeholder="YYYY" min="1">
+                <p class="input-text-error">Invalid Year</p>
+            </div>
+        </div>
+                <button class="input-btn"></button>
+        </div>
+        </form>
+
+        <div class="result-output output">
+            <div class="output-text output-years"><span>- -</span>years</div>
+            <div class="output-text output-months"><span>- -</span>months</div>
+            <div class="output-text output-days"><span>- -</span>days</div>
+          </div>
+        </div>
+    </div>
+
+</main>
+<div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Similoluwa Kayode</a>.
+  </div>
+  <script src="script.js"></script>   
+</body>
+</html>
