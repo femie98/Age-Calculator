@@ -1,3 +1,18 @@
+// Function to save the result in local storage
+function saveResultToLocalStorage(ageData) {
+  const ageDataJSON = JSON.stringify(ageData);
+  localStorage.setItem('ageData', ageDataJSON);
+}
+
+// Function to load the result from local storage
+function loadResultFromLocalStorage() {
+  const ageDataJSON = localStorage.getItem('ageData');
+  if (ageDataJSON) {
+    return JSON.parse(ageDataJSON);
+  }
+  return null; // Return null if no data is found in local storage
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const inputDay = document.querySelector('.input-days');
     const inputMonth = document.querySelector('.input-months');
@@ -7,13 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   inputDay.addEventListener('input', function () {
-    //If there were errors in the field, then with a new change we remove them
     if (inputDay.nextElementSibling.innerHTML == "Must be a valid date") {
       inputDay.parentElement.classList.remove("error");
       inputMonth.parentElement.classList.remove("error");
       inputYear.parentElement.classList.remove("error");
     }
-    //If a day greater than 31 is specified, then we signal an error, otherwise we delete the error
     if (inputDay.value > 31) {
       inputDay.nextElementSibling.innerHTML = "Must be a valid day"
       inputDay.parentElement.classList.add("error");
@@ -22,17 +35,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
  
-//Add an input event handler to the mounth input field
 inputMonth.addEventListener('input', function () {
-  //If there were errors in the field, then with a new change we remove them
   if (inputDay.nextElementSibling.innerHTML == "Must be a valid date") {
     inputDay.parentElement.classList.remove("error");
     inputMonth.parentElement.classList.remove("error");
     inputYear.parentElement.classList.remove("error");
   }
-  //If a mounth greater than 12 is specified, then we signal an error, otherwise we delete the error
   if (inputMonth.value > 12) {
-    inputMonth.nextElementSibling.innerHTML = "Must be a valid mounth"
+    inputMonth.nextElementSibling.innerHTML = "Must be a valid month"
     inputMonth.parentElement.classList.add("error");
   } else {
     inputMonth.parentElement.classList.remove("error");
@@ -40,15 +50,12 @@ inputMonth.addEventListener('input', function () {
   }
 });
 
-//Add an input event handler to the year input field
 inputYear.addEventListener('input', function () {
-  //If there were errors in the field, then with a new change we remove them
   if (inputDay.nextElementSibling.innerHTML == "Must be a valid date") {
     inputDay.parentElement.classList.remove("error");
     inputMonth.parentElement.classList.remove("error");
     inputYear.parentElement.classList.remove("error");
   }
-  //If the specified year is greater than the current year, we throw an error
   let Data = new Date();
   if (inputYear.value > Data.getFullYear()) {
     inputYear.nextElementSibling.innerHTML = "Must be in the past"
@@ -57,7 +64,6 @@ inputYear.addEventListener('input', function () {
     inputYear.parentElement.classList.remove("error");
   }
 });
-//Here just made it so that when given a negative year. The current year was taken minus the given one
 inputYear.addEventListener('change', function () {
   let Data = new Date();
   if (inputYear.value < 0) {
@@ -66,15 +72,12 @@ inputYear.addEventListener('change', function () {
   }
 });
 
-//Handling the button click event
 button.addEventListener('click', function () {
 
-  //Retrieving data from fields
   day = inputDay.value;
   month = inputMonth.value;
   year = inputYear.value;
 
-  //Checking that the fields are filled
   if (!day) {
     inputDay.parentElement.classList.add("error");
     inputDay.nextElementSibling.innerHTML = "This field is required"
@@ -93,7 +96,6 @@ button.addEventListener('click', function () {
 
   let date = new Date(year, month - 1, day);
   let currentData = new Date();
-//Checking if the date is correct
   if (!(date.getFullYear() == year && date.getMonth() == month - 1 && date.getDate() == day) || (document.getElementsByClassName('error').length) || date > currentData || year < 0) {
     inputDay.parentElement.classList.add("error");
     inputDay.nextElementSibling.innerHTML = "Must be a valid date"
@@ -104,24 +106,22 @@ button.addEventListener('click', function () {
     return;
   }
 
-
-
   let age_year = currentData.getFullYear() - date.getFullYear();
-  let age_mounth = 0;
+  let age_month = 0;
   let age_day = 0;
   if (currentData < new Date(currentData.getFullYear(), month - 1, day)) {
     age_year = age_year - 1;
-    age_mounth = currentData.getMonth() + 1;
+    age_month = currentData.getMonth() + 1;
     age_day = currentData.getDate();
   } else {
     if (currentData.getMonth() + 1 === month) {
-      age_mounth = 0;
+      age_month = 0;
       age_day = currentData.getDate() - day;
       console.log(age_day);
     } else {
-      age_mounth = currentData.getMonth() + 1 - month;
+      age_month = currentData.getMonth() + 1 - month;
       if (currentData.getDate() < day) {
-        age_mounth = age_mounth - 1;
+        age_month = age_month - 1;
         age_day = currentData.getDate() + new Date(currentData.getFullYear(), currentData.getMonth(), 0).getDate() - day;
       } else {
         age_day = currentData.getDate() - day;
@@ -130,18 +130,16 @@ button.addEventListener('click', function () {
 
   }
 
-  //We display the calculated data in the result fields
   const outputDay = document.querySelector('.output-days').querySelector('span');
   const outputMonth = document.querySelector('.output-months').querySelector('span');
   const outputYear = document.querySelector('.output-years').querySelector('span');
 
   OutputNumber(outputYear, age_year);
-  OutputNumber(outputMonth, age_mounth);
+  OutputNumber(outputMonth, age_month);
   OutputNumber(outputDay, age_day);
 
 });
 
-//Animated value output function, the output speed of values is calculated based on the magnitude of the value
 function OutputNumber(el, num) {
   let step = 50;
   num > 25 && (step = 35);
@@ -166,3 +164,13 @@ function OutputNumber(el, num) {
 }
 
 });
+
+// Load saved result from local storage
+const savedAgeData = loadResultFromLocalStorage();
+
+// Check if there is a saved result, and display it if found
+if (savedAgeData) {
+  OutputNumber(outputYear, savedAgeData.year);
+  OutputNumber(outputMonth, savedAgeData.month);
+  OutputNumber(outputDay, savedAgeData.day);
+}
