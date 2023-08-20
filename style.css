@@ -54,11 +54,8 @@ main {
     display: flex;
     flex-direction: column;
     color: hsl(0, 1%, 44%);
-    padding-bottom: 25px;
     padding-right: 25px;
-    border-bottom: 1px solid hsl(0, 0%, 86%);
     position: relative;
-    margin-bottom: 50px;  
   }
   @media (max-width: 380px) {
     .calculator-input {
@@ -74,7 +71,6 @@ main {
   .input-text {
     font-size: 0.7rem;
     font-weight: 500;
-    margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 2.5px;
   }
@@ -87,7 +83,6 @@ main {
     font-weight: 700;
     padding-left: 15px;
     caret-color: hsl(259, 100%, 65%);
-    margin-bottom: 6px;
   }
   .input-type:focus {
     outline: none;
@@ -145,6 +140,8 @@ main {
     transition: all 0.15s;
     transition: background-color 0.4s;
     scale: 1;
+    margin-top: 2px;
+    
   }
   .calculate_user_input:active {
     scale: 0.95;

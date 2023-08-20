@@ -1,22 +1,15 @@
-// Function to save the result in local storage
-function saveResultToLocalStorage(ageData) {
-  const ageDataJSON = JSON.stringify(ageData);
-  localStorage.setItem('ageData', ageDataJSON);
-}
-
-// Function to load the result from local storage
-function loadResultFromLocalStorage() {
-  const ageDataJSON = localStorage.getItem('ageData');
-  if (ageDataJSON) {
-    return JSON.parse(ageDataJSON);
-  }
-  return null; // Return null if no data is found in local storage
-}
-
 document.addEventListener("DOMContentLoaded", () => {
     const inputDay = document.querySelector('.input-days');
     const inputMonth = document.querySelector('.input-months');
   const inputYear = document.querySelector('.input-years');
+
+  const outputDay = document.querySelector('.output-days').querySelector('span');
+  const outputMonth = document.querySelector('.output-months').querySelector('span');
+  const outputYear = document.querySelector('.output-years').querySelector('span');
+
+  OutputNumber(outputYear, parseInt(localStorage.getItem("outputYears")));
+  OutputNumber(outputMonth, parseInt(localStorage.getItem("outputMonths")));
+  OutputNumber(outputDay, parseInt(localStorage.getItem("outputDays")));
   
   const button = document.querySelector('.calculate_user_input');
 
@@ -130,23 +123,34 @@ button.addEventListener('click', function () {
 
   }
 
+  //set data into localStorage
+  localStorage.setItem("outputDays", age_day);
+  localStorage.setItem("outputMonths", age_month);
+  localStorage.setItem("outputYears", age_year);
+
   const outputDay = document.querySelector('.output-days').querySelector('span');
   const outputMonth = document.querySelector('.output-months').querySelector('span');
   const outputYear = document.querySelector('.output-years').querySelector('span');
 
-  OutputNumber(outputYear, age_year);
-  OutputNumber(outputMonth, age_month);
-  OutputNumber(outputDay, age_day);
+  OutputNumber(outputYear, parseInt(localStorage.getItem("outputYears")));
+  OutputNumber(outputMonth, parseInt(localStorage.getItem("outputMonths")));
+  OutputNumber(outputDay, parseInt(localStorage.getItem("outputDays")));
 
 });
 
 function OutputNumber(el, num) {
   let step = 50;
-  num > 25 && (step = 35);
-  num > 50 && (step = 25);
-  num > 75 && (step = 20);
-  num > 100 && (step = 10);
-  num > 200 && (step = 1);
+  if (num > 200) {
+    step = 1;
+  } else if (num > 100) {
+    step = 10;
+  } else if (num > 75) {
+    step = 20;
+  } else if (num > 50) {
+    step = 25;
+  } else if (num > 25) {
+    step = 35;
+  }
 
   let n = 0;
   if (num === 0) {
@@ -165,12 +169,3 @@ function OutputNumber(el, num) {
 
 });
 
-// Load saved result from local storage
-const savedAgeData = loadResultFromLocalStorage();
-
-// Check if there is a saved result, and display it if found
-if (savedAgeData) {
-  OutputNumber(outputYear, savedAgeData.year);
-  OutputNumber(outputMonth, savedAgeData.month);
-  OutputNumber(outputDay, savedAgeData.day);
-}
