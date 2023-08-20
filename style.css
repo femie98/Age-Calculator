@@ -4,7 +4,6 @@ main {
     color: #040404;
     font-size: 32px;
     line-height: 1.2;
-    background-color: hsl(0, 0%, 86%);
     min-height: 100vh;
     padding: 40px;
   }
@@ -12,6 +11,10 @@ main {
     main {
       padding: 30px 15px;
     }
+  }
+  body {
+    background-color: hsl(0, 0%, 86%);
+
   }
   .container {
     background-color: hsl(0, 0%, 100%);
@@ -58,6 +61,11 @@ main {
     position: relative;
   }
   @media (max-width: 380px) {
+    .calculator-input {
+      min-width: 70px;
+    }
+  }
+  @media (max-width: 520px) {
     .calculator-input {
       min-width: 70px;
     }
@@ -140,7 +148,6 @@ main {
     transition: all 0.15s;
     transition: background-color 0.4s;
     scale: 1;
-    margin-top: 2px;
     
   }
   .calculate_user_input:active {
@@ -165,18 +172,18 @@ main {
   @media (max-width: 520px) {
     .calculate_user_input {
       right: 50%;
-      margin-right: -29px;
+      margin-right: -180px;
       bottom: -29px;
-      width: 58px;
+      width: 50px;
       height: 58px;
     }
   }
   @media (max-width: 380px) {
     .calculate_user_input {
       right: 50%;
-      margin-right: -26px;
+      margin-right: -160x;
       bottom: -26px;
-      width: 52px;
+      width: 50px;
       height: 52px;
     }
   }
