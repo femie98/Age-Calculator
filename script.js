@@ -7,9 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const outputMonth = document.querySelector('.output-months').querySelector('span');
   const outputYear = document.querySelector('.output-years').querySelector('span');
 
-  OutputNumber(outputYear, parseInt(localStorage.getItem("outputYears")));
-  OutputNumber(outputMonth, parseInt(localStorage.getItem("outputMonths")));
-  OutputNumber(outputDay, parseInt(localStorage.getItem("outputDays")));
+  OutputNumber(outputYear, parseInt(localStorage.getItem("outputYears")) || 0);
+  OutputNumber(outputMonth, parseInt(localStorage.getItem("outputMonths")) || 0);
+  OutputNumber(outputDay, parseInt(localStorage.getItem("outputDays")) || 0);
   
   const button = document.querySelector('.calculate_user_input');
 
